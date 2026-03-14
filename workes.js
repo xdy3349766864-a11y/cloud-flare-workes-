@@ -1,23 +1,18 @@
 /************************** 1. 公共配置区 **************************/
 const getConfig = (env) => ({
-  SITE_NAME: env.SITE_NAME || '次元资源库❀acg.3349766.xyz',
-  ADMIN_PATH: env.ADMIN_PATH || '/admin',
-  ADMIN_USER: env.ADMIN_USER || 'admin',
-  ADMIN_PASS: env.ADMIN_PASS || 'admin123',
+  SITE_NAME: env.SITE_NAME || '名称',
+  ADMIN_PATH: env.ADMIN_PATH || '/admin',//变量配置管理员地址
+  ADMIN_USER: env.ADMIN_USER || 'admin',//变量配置管理员用户名
+  ADMIN_PASS: env.ADMIN_PASS || 'admin123',//变量配置管理员密码
   DB: env.DB || env.nav_db
 });
 
-// 6张背景图片
+// 背景图片
 const BG_IMAGES = [
-  "https://liuhua-img.9968979.xyz/000320NZkud.jpg",
-  "https://liuhua-img.9968979.xyz/ec9d62dedb5e4a9382e571fb8c7b0c3f.jpg",
-  "https://liuhua-img.9968979.xyz/f1e92865c5014b12aedc3d6df1da3f85.png",
-  "https://liuhua-img.9968979.xyz/0028154aMHU.jpg",
-  "https://liuhua-img.9968979.xyz/211109HF9hy.jpg",
-  "https://liuhua-img.9968979.xyz/234340olIRq.jpg"
+  //输入你的背景图片url
 ];
 
-//图标
+//图标可以自行更改
 function getCategoryIcon(categoryName) {
   if (!categoryName) return '🌐';
   const iconMap = {
@@ -54,7 +49,7 @@ function getCategoryIcon(categoryName) {
   };
   return iconMap[categoryName] || '🌐';
 }
-/************************** 2. 数据库操作区 **************************/
+/************************** 2. 数据库操作区 **************************///需要绑定数据库
 const DB = {
   async fetchAll(env, q = '', cid = '') {
     const db = getConfig(env).DB;
@@ -162,7 +157,7 @@ const DB = {
   }
 };
 
-/************************** 3. 前台页面渲染区 **************************/
+/************************** 3. 前台页面渲染区 **************************///首页
 function renderFrontend(config, data, currentCid, currentQ) {
   const { categories, resources } = data;
   const randomBG = BG_IMAGES[Math.floor(Math.random() * BG_IMAGES.length)];
@@ -855,7 +850,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
 </html>
   `;
 }
-/************************** 4. 后台页面渲染区 **************************/
+/************************** 4. 后台页面渲染区 **************************///添加资源和图片url使用变量与机密中的用户名密码登陆
 function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrder = 'asc') {
   const { categories, resources } = data;
   
