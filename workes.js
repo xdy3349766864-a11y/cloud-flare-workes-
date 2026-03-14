@@ -244,9 +244,10 @@ function renderFrontend(config, data, currentCid, currentQ) {
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>${config.SITE_NAME}</title>
-  <link rel=\"icon\" href=\"https://liuhua-img.9968979.xyz/%E5%A4%B4%E9%83%A8.png" type=\"image/png\">
+  //网站头部ico自定义
+  <link rel=\"icon\" href=\"">
   <style>
-    /* 全局变量：樱花粉主题+参考站风格 */
+    /* 全局变量：樱花粉主题*/
     :root {
       --primary-color: #e879f9;
       --primary-light: #f0abfc;
@@ -295,7 +296,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
     a { text-decoration: none; color: inherit; }
     button, input { font-family: inherit; }
 
-    /* 加载动画（优化关闭按钮样式） */
+    /* 加载动画 */
     .loader-overlay {
       position: fixed;
       top: 0;
@@ -313,7 +314,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       transition: opacity 0.6s ease-out;
       gap: 30px;
     }
-    /* 优化后的关闭按钮样式 */
+    /* 关闭按钮样式 */
     .loader-close-btn {
       padding: 12px 30px;
       border-radius: 50px;
@@ -366,11 +367,11 @@ function renderFrontend(config, data, currentCid, currentQ) {
       pointer-events: none;
     }
 
-    /* 侧边栏（添加50%白色透明背景） */
+    /* 侧边栏 */
     .sidebar {
       width: var(--sidebar-width);
       height: 100vh;
-      /* 核心修改：50%白色透明背景 */
+      /*50%白色透明背景 */
       background: rgba(255, 255, 255, 0.5);
       border-right: 1px solid rgba(255, 255, 255, 0.2);
       display: flex;
@@ -395,7 +396,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       border-radius: var(--radius-xs);
     }
 
-    /* Logo（适配50%透明背景） */
+    /* Log */
     .logo {
       font-size: 22px;
       font-weight: 800;
@@ -410,7 +411,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       background-color: transparent;
     }
 
-    /* 导航项（适配50%透明背景） */
+    /* 导航项 */
     .nav-item {
       display: flex;
       align-items: center;
@@ -425,7 +426,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       border: 1px solid rgba(255, 255, 255, 0.8);
       color: #1f2937; /* 深色文字 */
     }
-    /* 移除hover和active的高亮效果 */
+    /* 移除h高亮效果 */
     .nav-item:hover {
       background: rgba(255, 255, 255, 0.8);
       transform: none;
@@ -451,7 +452,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       display: none;
     }
 
-    /* 主内容区（参考站紧凑布局） */
+    /* 主内容区 */
     .main-content {
       flex: 1;
       margin-left: var(--sidebar-width);
@@ -469,7 +470,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       border-radius: var(--radius-xs);
     }
 
-    /* 搜索框（参考站小尺寸） */
+    /* 搜索框 */
     .search-box {
       max-width: 520px;
       margin: 0 auto 24px;
@@ -513,7 +514,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       transform: translateY(0);
     }
 
-    /* 分类标题（参考站简洁风格） */
+    /* 分类标题 */
     .category-title {
       font-size: 18px;
       font-weight: 700;
@@ -539,7 +540,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       margin-left: 8px;
     }
 
-    /* 资源网格（参考站小卡片布局） */
+    /* 资源网格 */
     .resources-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -547,7 +548,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       margin-bottom: 16px;
     }
 
-    /* 卡片样式（参考站小尺寸圆角） */
+    /* 卡片样式 */
     .resource-card {
       background: var(--bg-glass);
       border: 1px solid var(--border-light);
@@ -583,7 +584,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       opacity: 1;
     }
 
-    /* 卡片头像（参考站小圆形） */
+    /* 卡片头像 */
     .card-avatar {
       width: 40px;
       height: 40px;
@@ -613,7 +614,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       transform: scale(1.15);
     }
 
-    /* 卡片内容（参考站小字号） */
+    /* 卡片内容 */
     .card-content {
       flex: 1;
       min-width: 0;
@@ -655,7 +656,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
       color: var(--primary-color);
     }
 
-    /* 卡片箭头（参考站无箭头，隐藏） */
+    /* 卡片箭头 */
     .card-arrow {
       display: none;
     }
@@ -726,7 +727,8 @@ function renderFrontend(config, data, currentCid, currentQ) {
 </head>
 <body>
   <div class=\"loader-overlay\" id=\"loader\">
-    <img src=\"https://picui.ogmua.cn/s1/2026/03/13/69b3ed326e593.webp\" class=\"loader-image\" alt=\"加载中\">
+  //加载图
+    <img src=\"" alt=\"加载中\">
     <!-- 按钮放到图片下方，文字改为点此关闭 -->
     <button class=\"loader-close-btn\" id=\"loaderCloseBtn\">点此关闭</button>
   </div>
@@ -854,7 +856,7 @@ function renderFrontend(config, data, currentCid, currentQ) {
 function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrder = 'asc') {
   const { categories, resources } = data;
   
-  // --- 排序逻辑 (保持不变) ---
+  //       --- 排序逻辑  ---
   let sortedResources = [...resources];
   sortedResources.sort((a, b) => {
     let aVal = a[sortBy] || '';
@@ -869,7 +871,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
     return sortOrder === 'asc' ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
   });
   
-  // --- 分类下拉框生成 (保持不变) ---
+  // --- 分类下拉框生成  ---
   let categorySelectHTML = '<option value="all">全部分类</option>';
   categories.forEach(cat => {
     const isSelected = currentCid == cat.id;
@@ -880,7 +882,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
     `;
   });
   
-  // --- 表格内容生成 (保持不变) ---
+  // --- 表格内容生成  ---
   let resourcesTableHTML = '';
   if (sortedResources.length > 0) {
     sortedResources.forEach(item => {
@@ -895,7 +897,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
           <td>${item.img_url ? `<a href="${item.img_url}" target="_blank">查看</a>` : '无'}</td>
           <td>
             <div class="action-btns">
-              <!-- 按钮 HTML 结构不变 -->
+              <!-- 按钮 HTML  -->
               <button class="edit-btn" data-id="${item.id}" 
                       data-category="${encodeURIComponent(item.category)}"
                       data-site_name="${encodeURIComponent(item.name)}"
@@ -925,7 +927,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${config.SITE_NAME} - 后台管理</title>
-  <link rel="icon" href="https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/9cb85e9314894fd3b5a4a3fa29efefd7.png~tplv-a9rns2rl98-24:720:720.png" type="image/png">
+  <link rel="icon" href="">
   <style>
     /* --- 全局变量与重置 --- */
     :root {
@@ -1102,7 +1104,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
     td a:hover { text-decoration: underline; }
 
     /* ========================================= */
-    /* ✅ 核心修改：操作按钮样式 (强制覆盖版) */
+    /*         核心修改：操作按钮样式 */
     /* ========================================= */
     
     /* 按钮容器 */
@@ -1151,7 +1153,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
     }
 
     /* ========================================= */
-    /* ✅ 模态框样式 --- */
+    /*           模态框样式 --- */
     /* ========================================= */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -1325,7 +1327,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
       }, 1500);
     });
     
-    // ✅ 核心修改：分类筛选函数 - 只匹配分类，清空搜索关键词
+    // 分类筛选函数 - 只匹配分类，清空搜索关键词
     function filterByCategory() {
       const cid = document.getElementById('category-filter').value;
       const sortBy = '${sortBy}';
@@ -1334,7 +1336,7 @@ function renderAdmin(config, data, currentCid, currentQ, sortBy = 'id', sortOrde
       window.location.search = 'cid=' + encodeURIComponent(cid) + '&q=&sortBy=' + sortBy + '&sortOrder=' + sortOrder;
     }
     
-    // ✅ 分类下拉框改变时，只执行分类筛选（不携带搜索词）
+    // 分类下拉框改变时，只执行分类筛选
     document.getElementById('category-filter').addEventListener('change', filterByCategory);
     
     // 搜索按钮：保留原有逻辑（分类+关键词组合搜索）
