@@ -1,78 +1,105 @@
-🌐 Cloudflare Serverless 资源导航系统
-零服务器・零运维・全球加速・开箱即用的全栈边缘计算导航站点基于 Cloudflare Workers + D1 构建，3 分钟完成全量部署，免费套餐即可完整运行
-📖 项目介绍
-本项目是一套基于 Cloudflare 全球边缘网络构建的全栈 Serverless 资源导航系统，专为 ACG 资源站点导航场景设计，同时支持通用资源导航场景。
-无需购买服务器、无需域名备案、无需安装任何本地开发工具，全程通过 Cloudflare 网页控制台即可完成部署上线。单文件实现全栈功能，内置前台分类导航展示、模糊搜索，以及后台全功能资源增删改查管理系统，开箱即用，支持高度自定义。
-✨ 核心特性
-表格
-特性	核心优势
-🌍 全球分布式部署	基于 Cloudflare 全球 275+ 城市边缘节点，毫秒级访问响应，无地域访问延迟
-🚫 零本地依赖	全程网页端可视化操作，无需安装工具、无需下载代码、无需本地环境配置
-🆓 永久免费可用	Cloudflare 免费套餐即可完整运行，无服务器成本、无带宽上限、无额外运维支出
-⚡ 全栈 Serverless 架构	边缘计算 Worker + Serverless D1 数据库，无需关心服务器运维，开箱即用
-🔐 可视化管理后台	内置全功能资源管理系统，支持自定义后台路径、基础鉴权防护，数据全生命周期管理
-📱 全端原生适配	响应式玻璃态设计，原生适配 PC / 平板 / 移动端，高级视觉质感开箱即用
-🔍 智能模糊搜索	支持站点名称、分类、备注多维度模糊搜索，快速定位目标资源
-🚀 3 分钟极速部署（全程网页端，零本地操作）
-前置准备
-仅需 1 个 Cloudflare 账号（免费套餐即可满足全量功能需求）👉 Cloudflare 账号注册入口
-步骤 1：创建 D1 Serverless 数据库实例
-登录 Cloudflare 控制台，进入左侧菜单栏 Workers & Pages
-顶部切换至 D1 数据库 标签页，点击 创建数据库
-自定义数据库名称（如 acg_nav_db），点击 创建 完成实例初始化
-实例创建成功后，留存当前页面的 数据库名称 与 数据库 ID，用于后续绑定
-步骤 2：初始化业务表结构
-在当前 D1 数据库详情页，切换至 控制台 标签页
-在 SQL 命令输入框中，粘贴以下 DDL 初始化语句，点击 运行
-sql
+# Cloudflare Workers ACG 资源导航系统
+
+一个基于 Cloudflare Workers + D1 数据库构建的轻量级、高性能 ACG（动漫/漫画/游戏/小说）资源导航网站。
+
+## ✨ 功能特性
+
+- 🎨 **精美 UI**：樱花粉渐变主题，毛玻璃效果，现代化卡片式布局
+- 📂 **分类导航**：内置 14+ 个 ACG 分类（动漫在线、资源下载、漫画、GAL、小说等），配有专属 SVG 图标
+- 🔍 **全站搜索**：支持按站点名称、分类、备注进行模糊搜索
+- 🔒 **后台管理**：Basic Auth 认证，支持资源的增删改查
+- 🖼️ **封面支持**：支持为每个资源设置自定义封面图片
+- 🌐 **状态标识**：清晰标注站点是否需要代理（🔒 需代理 / 🌐 直连）
+- 📱 **响应式设计**：完美适配桌面端和移动端
+- ⚡ **极速部署**：完全基于 Cloudflare 生态，零服务器成本
+
+## 📦 部署教程
+
+### 1. 准备工作
+你需要一个 Cloudflare 账号（免费版即可）。
+
+### 2. 创建 D1 数据库
+1. 登录 Cloudflare 控制台，进入 **Workers 和 Pages** -> **D1 数据库**
+2. 点击 **创建数据库**，输入名称（例如 `acg_nav_db`），点击创建
+3. 进入刚创建的数据库，点击 **控制台** (Console)
+4. 执行以下 SQL 语句创建数据表：
+
+```sql
 CREATE TABLE IF NOT EXISTS acg_websites (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL,
-    site_name TEXT NOT NULL,
-    domain TEXT NOT NULL,
-    remark TEXT,
-    need_proxy INTEGER DEFAULT 0,
-    img_url TEXT
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  category TEXT NOT NULL,
+  site_name TEXT NOT NULL,
+  domain TEXT NOT NULL,
+  remark TEXT,
+  need_proxy INTEGER DEFAULT 0,
+  img_url TEXT
 );
-页面返回 Success 提示，即表示业务表结构初始化完成
-步骤 3：部署 Worker 边缘计算服务
-回到 Workers & Pages 首页，点击 创建应用，切换至 Worker 标签
-自定义 Worker 服务名称（如 acg-resource-nav），点击 部署（默认代码无需修改，直接确认部署）
-部署完成后，点击 编辑代码 进入在线代码编辑器
-清空编辑器内默认代码，完整复制本项目 workes.js 全量代码粘贴至编辑框
-点击右上角 保存并部署，等待页面提示部署成功
-步骤 4：全局配置与数据库绑定
-部署完成后，回到 Worker 服务详情页，顶部切换至 设置 标签，左侧选择 变量
-环境变量配置：点击 添加变量，按下表完成核心参数配置，完成后点击 保存并部署
+3. 部署 Worker
+进入 Workers 和 Pages，点击 创建应用程序 -> 创建 Worker
+输入 Worker 名称（例如 acg-nav），点击 部署
+部署成功后，点击 编辑代码，将本项目 workes.js 的代码完整复制粘贴进去，点击 保存并部署
+4. 配置绑定与环境变量
+进入你的 Worker -> 设置：
+4.1 绑定 D1 数据库
+点击 绑定 (Bindings) -> 添加绑定：
+绑定类型：选择 D1 数据库
+变量名：DB (必须是这个名字，代码里用的是 env.DB)
+D1 数据库：选择你刚才创建的数据库
+点击 保存
+4.2 配置环境变量
+点击 变量和机密 (Variables and Secrets) -> 添加变量：
 表格
-变量名	示例值	配置说明
-SITE_NAME	次元资源库	网站全局名称，将显示在页面标题与导航栏
-ADMIN_PATH	/admin	后台管理入口路径，建议自定义非默认路径，提升安全性
-ADMIN_USER	自定义管理员账号	后台登录账号，请勿使用默认值
-ADMIN_PASS	自定义强密码	后台登录密码，建议 8 位以上含数字 + 字母组合
-D1 数据库绑定：向下滚动至 D1 数据库绑定 区域，点击 添加绑定
-变量名必须严格填写 DB
-数据库下拉选择步骤 1 创建的 D1 数据库实例
-点击 保存并部署，完成全量配置
-步骤 5：上线验证
-回到 Worker 服务详情页的 预览 标签，点击系统分配的 *.workers.dev 访问地址，即可进入网站前台
-访问 你的服务地址 + 自定义的 ADMIN_PATH（如 https://xxx.workers.dev/admin），输入配置的管理员账号密码，即可进入全功能管理后台
-至此，系统已完成全量部署上线，可正常使用
-⚙️ 高级配置说明
+变量名	示例值	是否必填	说明
+SITE_NAME	次元资源库	否	网站标题，不填默认为 "名称"
+ADMIN_PATH	/admin	否	后台管理路径，不填默认为 /admin
+ADMIN_USER	liuhua	是	后台登录用户名
+ADMIN_PASS	StrongPass123!	是	后台登录密码
+⚠️ 安全提醒：
+ADMIN_USER 和 ADMIN_PASS 必须修改，不要使用默认值！
+建议使用强密码（字母 + 数字 + 符号）。
+5. （可选）修改背景图片
+在代码的第 7 行左右，找到 BG_IMAGES 数组，填入你喜欢的背景图片 URL：
+javascript
+运行
+const BG_IMAGES = [
+  'https://example.com/bg1.jpg',
+  'https://example.com/bg2.jpg'
+];
+🎯 使用说明
+1. 访问前台
+直接访问你的 Worker 域名即可看到资源导航首页。
+2. 登录后台
+访问 https://你的域名/admin (或你自定义的 ADMIN_PATH)
+输入你配置的 ADMIN_USER 和 ADMIN_PASS 登录
+在后台可以添加、编辑、删除资源
+3. 添加资源时的分类说明
+代码内置了以下分类（添加时分类名称必须完全一致才会显示对应图标）：
+动漫在线
+资源下载
+字幕组库
+漫画在线
+漫画生肉
+漫画下载
+日轻小说
+GAL 游戏
+GAL 必备
+ACG 音乐
+ACG 资源
+次元资讯
+次元衍生
+次元社区
+次元美图
+📄 数据库表结构
 表格
-配置项	生效规则	生产环境建议
-SITE_NAME	环境变量优先级最高，修改后无需重新部署代码	自定义品牌名称，贴合站点定位
-ADMIN_PATH	支持自定义多级路径（如 /system/mgr/backend）	严禁使用默认 /admin 路径，避免恶意扫描
-ADMIN_USER/ADMIN_PASS	仅通过环境变量管理，无硬编码泄露风险	定期更换强密码，禁止使用弱口令
-🔒 生产环境安全最佳实践
-后台路径混淆：自定义非通用后台路径，避免被自动化工具扫描探测
-强口令策略：管理员账号密码使用高复杂度组合，禁止使用默认值、弱口令
-环境变量隔离：所有敏感配置均通过 Cloudflare 环境变量管理，不修改代码内默认值
-数据定期备份：通过 D1 数据库控制台的导出功能，定期备份业务数据
-访问控制（可选）：可通过 Cloudflare 防火墙规则，配置 IP 访问限制、地域访问控制
-📄 开源协议
-本项目基于 MIT License 开源，可自由修改、分发、商用使用，保留原作者版权声明即可。
-📌 补充说明
-本项目单文件实现全栈功能，无额外依赖，部署后即可正常使用
-后续功能更新仅需替换 workes.js 代码，无需重新配置数据库和环境变量
-如有使用问题，可提交 Issue 反馈
+字段名	类型	说明
+id	INTEGER	主键，自增
+category	TEXT	分类名称
+site_name	TEXT	站点名称
+domain	TEXT	站点网址
+remark	TEXT	备注描述
+need_proxy	INTEGER	是否需要代理 (0 = 否，1 = 是)
+img_url	TEXT	封面图片链接
+🤝 贡献
+欢迎提交 Issue 和 Pull Request！
+📄 许可证
+MIT License
