@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS acg_websites (
   need_proxy INTEGER DEFAULT 0,
   img_url TEXT
 );
+--
 3. 部署 Worker
 进入 Workers 和 Pages，点击 创建应用程序 -> 创建 Worker
 输入 Worker 名称（例如 acg-nav），点击 部署
